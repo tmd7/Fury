@@ -12,6 +12,8 @@ public class MainGameClass extends ApplicationAdapter {
 	Texture backGround;
 	Map map;
 	Tank player;
+
+	public static final float GLOBAL_GRAVITY = 300.0f;
 	
 	@Override
 	public void create () {
