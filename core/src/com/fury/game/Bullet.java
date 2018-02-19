@@ -6,11 +6,13 @@ public class Bullet {
     private Vector2 position;
     private Vector2 velocity;
     private boolean active;
+    private float angle;
 
     public Bullet() {
         position = new Vector2(0, 0);
         velocity = new Vector2(0, 0);
         active = false;
+        angle = 0.0f;
     }
 
     public void active(float x, float y, float vx, float vy) {
@@ -27,6 +29,7 @@ public class Bullet {
         // x += vx *dt;
         // y += vy * dt;
         position.mulAdd(velocity, dt);
+        angle = velocity.angle();
         velocity.y -= MainGameClass.GLOBAL_GRAVITY * dt;
     }
 }
