@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class MainGameClass extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture backGround;
+	Map map;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		backGround = new Texture("background1.png");
+		map = new Map();
 	}
 
 	@Override
@@ -25,6 +27,7 @@ public class MainGameClass extends ApplicationAdapter {
 
 		batch.begin();
 		batch.draw(backGround, 0, 0);
+		map.render(batch);
 		batch.end();
 	}
 
