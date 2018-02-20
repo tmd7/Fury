@@ -15,6 +15,22 @@ public class Bullet {
         angle = 0.0f;
     }
 
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public float getAngle() {
+        return angle;
+    }
+
     public void active(float x, float y, float vx, float vy) {
         position.set(x, y);
         velocity.set(x, y);

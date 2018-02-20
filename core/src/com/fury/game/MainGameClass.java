@@ -8,19 +8,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class MainGameClass extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture backGround;
-	Map map;
-	Tank player;
+	private SpriteBatch batch;
+	private Texture backGround;
+	private Map map;
+	private Tank player;
+	private BulletEmitter bulletEmitter;
 
 	public static final float GLOBAL_GRAVITY = 300.0f;
-	
+
+	public BulletEmitter getBulletEmitter() {
+		return bulletEmitter;
+	}
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		backGround = new Texture("background1.png");
 		map = new Map();
-		player = new Tank(map, new Vector2(100,500));
+		player = new Tank(this, new Vector2(100,100));
+		bulletEmitter = new BulletEmitter();
 	}
 
 	@Override
@@ -34,11 +40,13 @@ public class MainGameClass extends ApplicationAdapter {
 		batch.draw(backGround, 0, 0);
 		map.render(batch);
 		player.render(batch);
+		bulletEmitter.render(batch);
 		batch.end();
 	}
 
 	public void update(float dt) {
 		player.update(dt);
+		bulletEmitter.update(dt);
 	}
 	
 	@Override

@@ -11,7 +11,7 @@ public class Tank {
     private Texture textureTracks;
     private Texture textureTurret;
     private Vector2 position;
-    private Map map;
+    private MainGameClass game;
     private float turretAngle;
     private int hp;
     private int maxHp;
@@ -21,9 +21,10 @@ public class Tank {
     private final Vector2 POSITION_TURRET;
     private final Vector2 POSITION_CENTER_TANK;
     private static final float ROTATE_TURRET_V = 90.0f;
+    private static final float POWER_OF_TURRET = 400.0f;
 
-    public Tank(Map map, Vector2 position) {
-        this.map = map;
+    public Tank(MainGameClass game, Vector2 position) {
+        this.game = game;
         this.position = position;
         this.POSITION_BODY = new Vector2(position);
         this.POSITION_TRACKS = new Vector2(position).add(3, -11);
@@ -49,12 +50,26 @@ public class Tank {
     }
 
     public void update(float dt) {
-        //Control angle turret
+        //Control angle turret with keyboard
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             rotateTurret(1, dt);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             rotateTurret(-1, dt);
+        }
+
+        //shot
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            //Bullet shows on end of turret. Bullet uses the turret angle.
+            float BulletPositionX = POSITION_TURRET.x + 48 + 28 * (float)Math.cos(Math.toRadians(turretAngle));
+            float BulletPositionY = POSITION_TURRET.y + 7 + 28 * (float)Math.sin(Math.toRadians(turretAngle));
+
+            //Bullet velocity
+            float BulletVelocityX = POWER_OF_TURRET * (float)Math.cos(Math.toRadians(turretAngle));
+            float BulletVelocityY = POWER_OF_TURRET * (float)Math.sin(Math.toRadians(turretAngle));
+
+
+            game.getBulletEmitter().setup(BulletPositionX, BulletPositionY, BulletVelocityX, BulletVelocityY);
         }
     }
 }
